@@ -163,9 +163,6 @@ input:disabled,.send:disabled{opacity:.6;cursor:not-allowed}
 .official{text-align:center;font:600 12px 'Cinzel',serif;letter-spacing:.24em;color:#73502c;padding-bottom:12px;border-bottom:1px solid rgba(115,80,44,.4)}
 .letter h3{margin:18px 0 12px;text-align:center;font:700 clamp(20px,4vw,26px) 'Cinzel',serif;letter-spacing:.1em;color:#1a1209}
 .letter p{margin:0 0 .85em;font-size:clamp(18px,3.4vw,21px);line-height:1.5;color:#2a1d0f}
-.letter p .r{color:transparent}
-.letter p.typing .t::after{content:"";display:inline-block;width:2px;height:1em;margin-left:2px;vertical-align:-.12em;background:#73502c;animation:blink .7s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
 .signature{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:14px;font:italic 500 18px 'Cormorant Garamond',serif;color:#73502c;opacity:0;transform:translateY(6px);transition:opacity .8s ease,transform .8s var(--ease)}
 .signature.show{opacity:1;transform:none}
 .signature b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:700 13px 'Cinzel',serif;color:var(--gold-hi);
@@ -299,35 +296,16 @@ const titulo = $("title"), cuerpo = $("body"), sign = $("sign"), cerrar = $("clo
 
 const norm = s => s.trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase();
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-let run = 0, typer = null, skip = null;
+let run = 0;
 
 function reset(){
-  run++; clearInterval(typer); skip = null;
+  run++;
   stage.className = "stage";
   letter.classList.remove("show");
   sign.classList.remove("show");
   cerrar.classList.remove("show");
   unlock.hidden = true;
   errorBox.classList.remove("visible");
-}
-
-/* escribe el texto sin mover el diseño: lo no escrito se queda transparente */
-function escribir(items){
-  return new Promise(resolve => {
-    const total = items.reduce((a,i) => a + i.text.length, 0);
-    const dur = Math.min(4500, Math.max(1500, total*26));
-    const per = Math.max(1, total/(dur/30));
-    let shown = 0, offs = [], acc = 0;
-    items.forEach(i => { offs.push(acc); acc += i.text.length; });
-    const paint = () => items.forEach((it,k) => {
-      const n = Math.max(0, Math.min(it.text.length, Math.round(shown) - offs[k]));
-      it.t.textContent = it.text.slice(0,n); it.r.textContent = it.text.slice(n);
-      it.p.classList.toggle("typing", n > 0 && n < it.text.length);
-    });
-    const end = () => { clearInterval(typer); shown = total; paint(); skip = null; resolve(); };
-    skip = end;
-    typer = setInterval(() => { shown += per; paint(); if(shown >= total) end(); }, 30);
-  });
 }
 
 async function desbloquear(){
@@ -337,12 +315,10 @@ async function desbloquear(){
   await sleep(1500); if(!ok()) return; stage.classList.add("done");
   await sleep(500);  if(!ok()) return; letter.classList.add("show");
   await sleep(800);  if(!ok()) return;
-  await escribir(items);
-  if(!ok()) return; sign.classList.add("show"); cerrar.classList.add("show");
+  sign.classList.add("show"); cerrar.classList.add("show");
   campo.disabled = boton.disabled = false;
 }
 
-let items = [];
 form.addEventListener("submit", e => {
   e.preventDefault();
   const clave = norm(campo.value);
@@ -355,18 +331,16 @@ form.addEventListener("submit", e => {
 
   titulo.textContent = m.titulo;
   cuerpo.replaceChildren();
-  items = m.texto.split(/\n\s*\n/).map(text => {
-    const p = document.createElement("p"), t = document.createElement("span"), r = document.createElement("span");
-    t.className = "t"; r.className = "r"; r.textContent = text;
-    p.append(t, r); cuerpo.appendChild(p);
-    return {p, t, r, text};
+  m.texto.split(/\n\s*\n/).forEach(text => {
+    const p = document.createElement("p");
+    p.textContent = text;
+    cuerpo.appendChild(p);
   });
   unlock.hidden = false;
   campo.disabled = boton.disabled = true;
   desbloquear();
 });
 
-letter.addEventListener("click", () => skip && skip());
 
 cerrar.addEventListener("click", () => {
   reset();
