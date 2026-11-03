@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CENTRAL | Expreso Boreal</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    :root {
+      --fondo: #071321;
+      --panel: #101f30;
+      --panel-claro: #172a3e;
+      --oro: #c5a66b;
+      --marfil: #eee8d9;
+      --texto-secundario: #aab5c1;
+      --borde: rgba(197, 166, 107, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 16px;
+      background:
+        radial-gradient(ellipse at top, #1a3045 0%, transparent 55%),
+        var(--fondo);
+      color: var(--marfil);
+      font-family: 'IBM Plex Mono', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 520px;
+      border: 1px solid var(--borde);
+      background: rgba(10, 25, 40, 0.96);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .top-line {
+      height: 5px;
+      background: var(--oro);
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 22px 24px;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .train-icon {
+      color: var(--oro);
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow {
+      color: var(--oro);
+      font-size: 10px;
+      letter-spacing: 3px;
+      margin: 0 0 10px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      letter-spacing: 5px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--marfil);
+    }
+
+    .subtitle {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--texto-secundario);
+      margin-top: 8px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 7px 12px;
+      border: 1px solid var(--borde);
+      color: var(--oro);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #8ebd91;
+      border-radius: 50%;
+    }
+
+    main {
+      padding: 25px 22px 30px;
+    }
+
+    .case-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 17px;
+      border-bottom: 1px solid var(--borde);
+      color: var(--texto-secundario);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .welcome {
+      margin: 24px 0;
+      padding: 18px;
+      background: var(--panel);
+      border-left: 2px solid var(--oro);
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--marfil);
+    }
+
+    .welcome strong {
+      color: var(--oro);
+      font-weight: 500;
+    }
+
+    label {
+      display: block;
+      color: var(--oro);
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 11px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      background: #071321;
+      border: 1px solid var(--borde);
+      color: var(--marfil);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      outline: none;
+      text-transform: uppercase;
+    }
+
+    input:focus {
+      border-color: var(--oro);
+      box-shadow: 0 0 0 2px rgba(197, 166, 107, 0.12);
+    }
+
+    input::placeholder {
+      color: #647486;
+      font-size: 11px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 13px;
+      padding: 16px;
+      border: 1px solid var(--oro);
+      background: var(--oro);
+      color: #101b28;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #dfc38e;
+    }
+
+    .response {
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      background: var(--panel-claro);
+      border: 1px solid var(--borde);
+      line-height: 1.8;
+      font-size: 12px;
+      white-space: pre-line;
+    }
+
+    .response.visible {
+      display: block;
+    }
+
+    .response-title {
+      color: var(--oro);
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .error {
+      border-color: rgba(190, 105, 95, 0.6);
+    }
+
+    .error .response-title {
+      color: #d68d83;
+    }
+
+    footer {
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid var(--borde);
+      color: #788797;
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      main {
+        padding: 20px 16px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="terminal">
+    <div class="top-line"></div>
+
+    <header>
+      <div class="train-icon">✧ 🚂 ✧</div>
+      <p class="eyebrow">EXPRESO BOREAL</p>
+      <h1>CENTRAL</h1>
+      <div class="subtitle">SISTEMA DE COMUNICACIÓN INTERNA</div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        SISTEMA EN LÍNEA
+      </div>
+    </header>
+
+    <main>
+      <div class="case-info">
+        <span>EXPEDIENTE 024</span>
+        <span>CANAL PRIVADO</span>
+      </div>
+
+      <div class="welcome">
+        <strong>Bienvenidos, investigadores.</strong><br><br>
+        Han accedido al sistema interno del Expreso Boreal.
+        Introduzcan la palabra clave correspondiente para
+        consultar la información autorizada.
+      </div>
+
+      <form id="central-form">
+        <label for="keyword">INTRODUCIR PALABRA CLAVE</label>
+
+        <input
+          id="keyword"
+          type="text"
+          placeholder="ESCRIBIR PALABRA CLAVE..."
+          autocomplete="off"
+          required
+        >
+
+        <button type="submit">ENVIAR A CENTRAL</button>
+      </form>
+
+      <div id="response" class="response" aria-live="polite">
+        <div class="response-title" id="response-title"></div>
+        <div id="response-text"></div>
+      </div>
+    </main>
+
+    <footer>
+      EXPEDIENTE 024 · EXPRESO BOREAL · SISTEMA INTERNO
+    </footer>
+  </div>
+
+  <script>
+    // PALABRA PROVISIONAL PARA COMPROBAR EL FUNCIONAMIENTO.
+    // Se sustituirá por las palabras clave definitivas del documento.
+
+    const mensajes = {
+      "PRUEBA": {
+        titulo: "CONEXIÓN VERIFICADA",
+        texto: "La comunicación con CENTRAL funciona correctamente.\n\nEste es un mensaje de prueba. El sistema está preparado para incorporar las instrucciones reales del Expediente 024."
+      }
+    };
+
+    const formulario = document.getElementById("central-form");
+    const campo = document.getElementById("keyword");
+    const respuesta = document.getElementById("response");
+    const titulo = document.getElementById("response-title");
+    const texto = document.getElementById("response-text");
+
+    formulario.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const palabra = campo.value.trim().toUpperCase();
+
+      respuesta.classList.add("visible");
+      respuesta.classList.remove("error");
+
+      if (mensajes[palabra]) {
+        titulo.textContent = mensajes[palabra].titulo;
+        texto.textContent = mensajes[palabra].texto;
+      } else {
+        respuesta.classList.add("error");
+        titulo.textContent = "ACCESO NO VALIDADO";
+        texto.textContent =
+          "La palabra introducida no ha sido reconocida.\n\nComprueben la información disponible e inténtenlo de nuevo.";
+      }
+    });
+  </script>
+</body>
+</html>
