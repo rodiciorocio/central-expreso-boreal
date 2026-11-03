@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,16 +8,18 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --navy: #071522;
-  --navy-light: #102438;
+  --navy: #050e17;
+  --navy-card: #0b1c2d;
+  --gold-dark: #8c6d37;
   --gold: #d2ad6d;
-  --gold-light: #f0d49b;
+  --gold-light: #f5dba8;
   --ivory: #f3ead9;
-  --muted: #aab7c3;
+  --muted: #a0b0c0;
+  --red-seal: #8b1e1b;
 }
 
 * {
@@ -28,17 +29,17 @@
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 30px 15px;
+  padding: 25px 12px;
   overflow-x: hidden;
   background:
-    radial-gradient(ellipse at 50% 0%, #1b3548, transparent 55%),
-    linear-gradient(145deg, #06111d, #0b1c2b 55%, #071522);
+    radial-gradient(ellipse at 50% 0%, #152d42, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, #0d1e2e, transparent 70%),
+    linear-gradient(180deg, #040a12, #071522 50%, #03080e);
   color: var(--ivory);
   font-family: 'IBM Plex Mono', monospace;
 }
 
 /* NIEVE ANIMADA */
-
 .snow {
   position: fixed;
   inset: 0;
@@ -51,135 +52,136 @@ body {
   position: absolute;
   top: -25px;
   left: var(--left);
-  color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.65);
   font-size: var(--size);
   animation: snowfall var(--duration) linear var(--delay) infinite;
-  text-shadow: 0 0 8px rgba(255,255,255,.35);
+  text-shadow: 0 0 6px rgba(255,255,255,.4);
 }
 
 @keyframes snowfall {
-  0% {
-    transform: translate3d(0,-20px,0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(22px,50vh,0) rotate(120deg);
-  }
-  100% {
-    transform: translate3d(-12px,105vh,0) rotate(240deg);
-  }
+  0% { transform: translate3d(0,-20px,0) rotate(0deg); }
+  50% { transform: translate3d(18px,50vh,0) rotate(120deg); }
+  100% { transform: translate3d(-10px,105vh,0) rotate(240deg); }
 }
 
 /* MARCO PRINCIPAL */
-
 .page {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 850px;
+  max-width: 820px;
   margin: 0 auto;
-  padding: 7px;
-  border: 1px solid var(--gold);
-  outline: 1px solid rgba(210,173,109,.25);
+  padding: 6px;
+  border: 2px solid var(--gold);
+  outline: 1px solid rgba(210,173,109,.3);
   outline-offset: 4px;
-  background: linear-gradient(145deg,#102337,#071522 70%);
-  box-shadow: 0 25px 80px rgba(0,0,0,.5);
+  background: linear-gradient(160deg, #0c1e2f, #05111d 80%);
+  box-shadow: 0 20px 60px rgba(0,0,0,.8), inset 0 0 30px rgba(210,173,109,.08);
 }
 
 .inner {
-  border: 1px solid rgba(210,173,109,.45);
+  border: 1px solid rgba(210,173,109,.35);
+  padding: 4px;
 }
 
 .ornament {
   text-align: center;
   color: var(--gold);
-  font-size: 17px;
-  letter-spacing: 13px;
-  padding: 10px 0 0 13px;
+  font-size: 14px;
+  letter-spacing: 12px;
+  padding: 8px 0 2px 12px;
+  opacity: .8;
 }
 
 /* CABECERA */
-
 header {
   text-align: center;
-  padding: 25px 20px 28px;
-  border-bottom: 1px solid rgba(210,173,109,.45);
-  background:
-    radial-gradient(ellipse at center,rgba(210,173,109,.09),transparent 65%);
+  padding: 20px 15px 22px;
+  border-bottom: 1px solid rgba(210,173,109,.35);
+  background: radial-gradient(ellipse at center, rgba(210,173,109,.12), transparent 70%);
 }
 
-.brand {
+.brand-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 22px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
-/* LOGO VECTORIAL EB */
+.brand-title-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  text-align: left;
+}
 
-.logo {
-  width: 112px;
-  height: 112px;
+.logo-eb {
+  width: 75px;
+  height: 75px;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 12px rgba(210,173,109,.2));
+  filter: drop-shadow(0 0 10px rgba(210,173,109,.25));
 }
 
-.brand h1 {
+.brand-title-box h1 {
   margin: 0;
   color: var(--gold-light);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: clamp(48px,8vw,76px);
-  font-weight: 600;
-  letter-spacing: 7px;
-  line-height: .95;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 7vw, 58px);
+  font-weight: 700;
+  letter-spacing: 6px;
+  line-height: .9;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
 }
 
-.brand p {
-  margin: 10px 0 0;
+.brand-title-box p {
+  margin: 6px 0 0;
   color: var(--ivory);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 16px;
-  letter-spacing: 3px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  opacity: .9;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  background: rgba(7, 21, 34, 0.6);
+  color: var(--gold-light);
+  font-size: 10px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #62d275;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #62d275;
 }
 
 .header-rule {
   height: 1px;
-  margin: 23px auto 0;
-  background: linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 19px;
-  padding: 9px 16px;
-  border: 1px solid var(--gold);
-  border-radius: 30px;
-  color: var(--gold-light);
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  background: #91c99a;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #91c99a;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
 /* CONTENIDO */
-
 main {
-  padding: 28px clamp(17px,5vw,42px) 35px;
+  padding: 22px clamp(12px, 4vw, 32px) 28px;
 }
 
 .case-line {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  padding-bottom: 17px;
-  border-bottom: 1px solid rgba(210,173,109,.4);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(210,173,109,.3);
   color: var(--gold);
   font-size: 10px;
   letter-spacing: 2px;
@@ -187,84 +189,87 @@ main {
 
 .section-heading {
   text-align: center;
-  margin: 28px 0 25px;
+  margin: 22px 0 20px;
 }
 
 .section-heading h2 {
   margin: 0;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: clamp(30px,6vw,43px);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 5vw, 36px);
   font-weight: 600;
+  color: var(--ivory);
 }
 
 .section-heading p {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 19px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
   font-style: italic;
 }
 
-/* TARJETA DE CENTRAL */
-
+/* TARJETA CANAL CENTRAL */
 .telegram {
   display: grid;
-  grid-template-columns: 105px 1fr;
-  gap: 22px;
+  grid-template-columns: 85px 1fr;
+  gap: 18px;
   align-items: center;
-  padding: 22px;
-  margin: 25px 0 28px;
-  background: linear-gradient(120deg,#11283b,#0a1b2a);
+  padding: 18px 20px;
+  margin: 20px 0 24px;
+  background: linear-gradient(135deg, rgba(16,36,56,0.9), rgba(7,21,34,0.95));
   border: 1px solid var(--gold);
-  border-radius: 12px;
-  box-shadow: 0 8px 22px rgba(0,0,0,.2);
+  border-radius: 8px;
+  box-shadow: inset 0 0 15px rgba(210,173,109,.05), 0 6px 18px rgba(0,0,0,.4);
 }
 
 .telegram-icon {
-  display: grid;
-  place-items: center;
-  min-height: 110px;
-  border-right: 1px solid var(--gold);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-right: 1px solid rgba(210,173,109,.3);
+  padding-right: 15px;
 }
 
 .telegram-icon svg {
-  width: 76px;
-  height: 76px;
+  width: 58px;
+  height: 58px;
 }
 
 .telegram h3 {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   color: var(--gold);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 27px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  letter-spacing: 2px;
 }
 
 .telegram strong {
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 21px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--ivory);
+  display: block;
 }
 
 .telegram p {
-  margin: 12px 0 0;
-  padding-top: 12px;
-  border-top: 1px solid rgba(210,173,109,.3);
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(210,173,109,.2);
   color: var(--muted);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
   font-style: italic;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-/* FORMULARIO */
-
+/* FORMULARIO DE ENTRADA */
 .form-section {
-  padding-top: 24px;
-  border-top: 1px solid rgba(210,173,109,.4);
+  padding-top: 10px;
 }
 
 label {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--gold);
   font-size: 11px;
   letter-spacing: 2px;
@@ -273,58 +278,62 @@ label {
 input {
   display: block;
   width: 100%;
-  min-height: 62px;
-  padding: 16px 19px;
-  border: 1px solid var(--gold-light);
-  border-radius: 9px;
+  min-height: 54px;
+  padding: 14px 18px;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
   outline: none;
-  background: #091827;
-  color: var(--ivory);
-  font-family: 'IBM Plex Mono',monospace;
-  font-size: 15px;
-  letter-spacing: 1px;
+  background: rgba(4, 12, 20, 0.8);
+  color: var(--gold-light);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.6);
+  transition: border-color .2s, box-shadow .2s;
 }
 
 input:focus {
-  border-color: #f5dba8;
-  box-shadow: 0 0 0 3px rgba(210,173,109,.15);
+  border-color: var(--gold-light);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.6), 0 0 10px rgba(210,173,109,.3);
 }
 
 input::placeholder {
-  color: #82909e;
-  font-family: 'Cormorant Garamond',serif;
+  color: #526373;
+  font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 21px;
+  font-size: 18px;
+  text-transform: none;
 }
 
 .send-button {
   display: block;
-  width: min(100%,430px);
-  min-height: 64px;
-  margin: 18px auto 0;
-  border: 2px solid #f1d49b;
-  border-radius: 9px;
-  background: linear-gradient(180deg,#e6c17e,#b88a43);
-  color: #17202a;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 23px;
+  width: min(100%, 380px);
+  min-height: 54px;
+  margin: 20px auto 0;
+  border: 2px solid var(--gold-light);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #dfb56c, #9e7533);
+  color: #0d1721;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   cursor: pointer;
-  box-shadow: 0 5px 18px rgba(0,0,0,.3);
-  transition: .2s;
+  box-shadow: 0 4px 15px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.4);
+  transition: all .2s;
 }
 
 .send-button:hover {
-  filter: brightness(1.12);
-  transform: translateY(-2px);
+  background: linear-gradient(180deg, #edd091, #b58941);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(210,173,109,.3);
 }
 
-/* ZONA DE RESPUESTA */
-
+/* ZONA DE RESPUESTA Y ANIMACIÓN DEL SOBRE */
 .response {
   display: none;
-  margin-top: 35px;
+  margin-top: 30px;
   text-align: center;
 }
 
@@ -334,260 +343,216 @@ input::placeholder {
 
 .unlock-heading {
   color: var(--gold-light);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 27px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
   letter-spacing: 3px;
-  animation: fadeIn .7s ease both;
+  font-weight: 700;
+  animation: fadeIn .5s ease both;
 }
 
 .unlock-subtitle {
   color: var(--muted);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 17px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
   font-style: italic;
-  margin: 6px 0 15px;
+  margin: 4px 0 18px;
 }
 
-/* ESCENARIO DEL SOBRE */
-
+/* ESCENARIO CONTENEDOR */
 .envelope-stage {
   position: relative;
-  width: min(100%,440px);
-  height: 310px;
-  margin: 10px auto 0;
-  perspective: 1100px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 220px;
+  perspective: 1000px;
+  transition: min-height .6s ease;
 }
 
-/* CUERPO DEL SOBRE */
+/* SOBRE FÍSICO */
+.envelope-wrapper {
+  position: relative;
+  width: 280px;
+  height: 160px;
+  margin: 0 auto;
+  transition: transform .6s ease, opacity .6s ease;
+}
 
 .envelope {
   position: absolute;
-  bottom: 15px;
-  left: 50%;
-  width: 290px;
-  height: 165px;
-  transform: translateX(-50%);
-  border: 2px solid #f1d49b;
-  border-radius: 5px;
-  background: linear-gradient(145deg,#e8c98e,#b98949);
-  box-shadow: 0 12px 28px rgba(0,0,0,.4);
+  inset: 0;
+  background: linear-gradient(145deg, #d8b273, #a27a3d);
+  border: 1px solid #f7e2b7;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.6);
   z-index: 3;
 }
 
-/* SOLAPA */
-
+/* SOLAPA DEL SOBRE */
 .envelope-flap {
   position: absolute;
-  z-index: 6;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: 100px;
-  background: linear-gradient(145deg,#f1d9a7,#c69a5c);
-  clip-path: polygon(0 0,100% 0,50% 100%);
-  transform-origin: 50% 0%;
-  transform: rotateX(0deg);
-  transition: transform .9s cubic-bezier(.4,0,.2,1);
-}
-
-/* TRIÁNGULOS DEL SOBRE */
-
-.envelope::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  background:
-    linear-gradient(145deg,transparent 49.5%,rgba(112,69,28,.28) 50%,transparent 51%);
-  pointer-events: none;
-}
-
-.envelope::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 95px;
+  background: linear-gradient(180deg, #ebd098, #be9351);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .7s cubic-bezier(.4,0,.2,1);
   z-index: 5;
-  background:
-    linear-gradient(35deg,transparent 49.5%,rgba(112,69,28,.35) 50%,transparent 51%);
-  pointer-events: none;
 }
 
-/* SELLO DE LACRE EB */
-
+/* SELLO DE LACRE */
 .seal {
   position: absolute;
-  z-index: 8;
+  top: 55px;
   left: 50%;
-  top: 61px;
-  width: 60px;
-  height: 60px;
   transform: translateX(-50%);
-  display: grid;
-  place-items: center;
-  border: 2px solid #e6bd76;
+  width: 52px;
+  height: 52px;
+  background: radial-gradient(circle, var(--red-seal), #4d0d0b);
+  border: 2px solid var(--gold);
   border-radius: 50%;
-  background: radial-gradient(circle,#9b3027,#571a19);
-  color: #f4d69a;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 24px;
+  color: var(--gold-light);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
   font-weight: 700;
-  box-shadow: 0 3px 9px rgba(0,0,0,.4);
-  transition: opacity .3s, transform .4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,.6);
+  z-index: 6;
+  transition: opacity .4s ease, transform .4s ease;
 }
 
-/* CARTA DENTRO DEL SOBRE */
-
-.letter-card {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  bottom: 25px;
-  width: 240px;
-  height: 145px;
-  padding: 15px;
-  overflow: hidden;
-  transform: translateX(-50%);
-  opacity: 0;
-  background: linear-gradient(135deg,#f5e4bf,#d9b77e);
-  border: 2px solid #a77c43;
-  box-shadow: 0 8px 25px rgba(0,0,0,.35);
-  color: #392a1b;
-  text-align: center;
-  transition:
-    bottom 1s cubic-bezier(.2,.8,.2,1),
-    width 1s ease,
-    height 1s ease,
-    opacity .4s ease,
-    padding 1s ease;
-}
-
-.letter-mark {
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding-bottom: 9px;
-  border-bottom: 1px solid #a77c43;
-}
-
-.letter-symbol {
-  margin-top: 17px;
-  font-size: 32px;
-  color: #946c39;
-}
-
-.letter-caption {
-  margin-top: 8px;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
-
-/* APERTURA DEL SOBRE */
-
+/* ESTADO ABIERTO DEL SOBRE */
 .envelope-stage.open .envelope-flap {
   transform: rotateX(180deg);
+  z-index: 1;
 }
 
 .envelope-stage.open .seal {
   opacity: 0;
-  transform: translateX(-50%) scale(.5);
+  transform: translateX(-50%) scale(0.5);
 }
 
-/* LA CARTA SALE DEL SOBRE */
+/* CARTA DE MENSAJE (PERGAMINO) */
+.letter-card {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  min-height: 120px;
+  background: linear-gradient(135deg, #f5e4bf, #dfc08a);
+  border: 2px solid #8c6833;
+  border-radius: 4px;
+  padding: 15px;
+  color: #2b1f11;
+  box-shadow: 0 6px 20px rgba(0,0,0,.4);
+  z-index: 2;
+  opacity: 0;
+  transition: all .8s cubic-bezier(.25,1,.5,1);
+}
 
+/* ETAPA 2: LA CARTA EMERGE */
 .envelope-stage.open .letter-card {
-  z-index: 7;
-  bottom: 145px;
   opacity: 1;
+  top: -80px;
+  z-index: 7;
 }
 
-/* LA CARTA SE DESPLIEGA */
+/* ETAPA 3: LA CARTA SE DESPLIEGA COMPLETAMENTE */
+.envelope-stage.expanded {
+  min-height: 320px;
+}
+
+.envelope-stage.expanded .envelope-wrapper {
+  transform: translateY(60px) scale(0.9);
+  opacity: 0.15;
+}
 
 .envelope-stage.expanded .letter-card {
-  bottom: 0;
-  width: min(100%,570px);
-  height: auto;
-  min-height: 230px;
-  overflow: visible;
-  padding: 25px clamp(18px,5vw,38px);
-  border: 5px double #9a713d;
-  border-radius: 7px;
+  top: 0;
+  width: 100%;
+  max-width: 500px;
+  min-height: 240px;
+  padding: 25px 22px;
   background:
-    radial-gradient(ellipse at 20% 20%,rgba(255,255,255,.4),transparent 40%),
-    linear-gradient(135deg,#f1d8a8,#d9b77e 50%,#f0d6a3);
-  box-shadow: 0 12px 35px rgba(0,0,0,.4);
-  text-align: left;
+    radial-gradient(ellipse at center, rgba(255,255,255,0.3), transparent 70%),
+    linear-gradient(135deg, #f8ebd0, #e2c792 60%, #eed9af);
+  border: 3px double #8c6833;
+  box-shadow: 0 12px 35px rgba(0,0,0,.7);
+  z-index: 10;
 }
 
 .letter-content {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity .65s ease, transform .65s ease;
-  transition-delay: .65s;
+  transition: opacity .5s ease .4s;
 }
 
 .envelope-stage.expanded .letter-content {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .letter-official {
   text-align: center;
   color: #73502c;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(115,80,44,.55);
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(115,80,44,.4);
 }
 
 .response-title {
-  margin: 17px 0 9px;
+  margin: 14px 0 8px;
   text-align: center;
-  color: #282016;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 28px;
+  color: #1a1209;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
   font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .response-text {
-  color: #392a1b;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 20px;
-  line-height: 1.5;
+  color: #2c2013;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.45;
   white-space: pre-line;
+  text-align: left;
 }
 
 .close-button {
   display: block;
-  min-width: 190px;
-  margin: 20px auto 0;
-  padding: 12px 25px;
+  min-width: 180px;
+  margin: 22px auto 0;
+  padding: 10px 22px;
   border: 1px solid var(--gold);
-  border-radius: 30px;
-  background: #091827;
+  border-radius: 20px;
+  background: #081726;
   color: var(--gold-light);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
   letter-spacing: 2px;
   cursor: pointer;
+  transition: background .2s;
 }
 
 .close-button:hover {
-  background: #193047;
+  background: #12283d;
 }
 
-/* ERROR */
-
+/* ERROR DE VALIDACIÓN */
 .error-box {
   display: none;
-  margin-top: 25px;
-  padding: 20px;
-  border: 1px solid #bb8277;
-  border-radius: 9px;
-  background: #241b20;
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #a85848;
+  border-radius: 6px;
+  background: rgba(30, 15, 18, 0.85);
   text-align: center;
 }
 
@@ -597,178 +562,60 @@ input::placeholder {
 }
 
 .error-title {
-  color: #e0a397;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 24px;
+  color: #e8988a;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
   font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .error-text {
-  margin-top: 8px;
+  margin-top: 6px;
   color: var(--ivory);
   font-size: 12px;
-  line-height: 1.7;
+  line-height: 1.6;
+  opacity: .9;
 }
-
-/* ANIMACIONES GENERALES */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* PIE */
-
+/* PIE DE PÁGINA */
 footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  padding: 16px 22px;
-  border-top: 1px solid rgba(210,173,109,.4);
+  padding: 14px 18px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(210,173,109,.3);
   color: var(--gold);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 .footer-left {
   color: var(--muted);
-  font-family: 'IBM Plex Mono',monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 9px;
 }
 
-/* ADAPTACIÓN A MÓVILES */
-
-@media(max-width:560px) {
-  body {
-    padding: 17px 10px;
-  }
-
-  .page {
-    padding: 5px;
-  }
-
-  header {
-    padding: 22px 10px;
-  }
-
-  .brand {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .logo {
-    width: 88px;
-    height: 88px;
-  }
-
-  .brand h1 {
-    font-size: 49px;
-    letter-spacing: 5px;
-  }
-
-  .brand p {
-    font-size: 12px;
-    letter-spacing: 2px;
-  }
-
-  main {
-    padding: 22px 14px 25px;
-  }
-
-  .telegram {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 17px;
-  }
-
-  .telegram-icon {
-    min-height: auto;
-    padding-bottom: 12px;
-    border-right: 0;
-    border-bottom: 1px solid var(--gold);
-  }
-
-  .telegram h3,
-  .telegram strong,
-  .telegram p {
-    text-align: center;
-  }
-
-  .case-line {
-    font-size: 9px;
-    letter-spacing: 1px;
-  }
-
-  .envelope-stage {
-    height: 290px;
-  }
-
-  .envelope {
-    width: 245px;
-    height: 140px;
-  }
-
-  .envelope-flap {
-    height: 85px;
-  }
-
-  .seal {
-    top: 51px;
-    width: 53px;
-    height: 53px;
-  }
-
-  .letter-card {
-    width: 215px;
-    height: 130px;
-  }
-
-  .envelope-stage.open .letter-card {
-    bottom: 145px;
-  }
-
-  .envelope-stage.expanded .letter-card {
-    bottom: 0;
-    width: 100%;
-    min-height: 240px;
-    padding: 20px 15px;
-  }
-
-  .response-title {
-    font-size: 24px;
-  }
-
-  .response-text {
-    font-size: 18px;
-  }
-
-  footer {
-    padding: 13px 9px;
-    font-size: 12px;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  .snow span {
-    display: none;
-    animation: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-  }
+/* ADAPTACIÓN MÓVIL */
+@media(max-width: 580px) {
+  body { padding: 12px 6px; }
+  .brand-header { flex-direction: column; text-align: center; }
+  .brand-title-box { flex-direction: column; text-align: center; gap: 10px; }
+  .logo-eb { width: 65px; height: 65px; }
+  .brand-title-box h1 { font-size: 42px; }
+  .telegram { grid-template-columns: 1fr; text-align: center; }
+  .telegram-icon { border-right: 0; border-bottom: 1px solid rgba(210,173,109,.3); padding-right: 0; padding-bottom: 12px; }
+  .envelope-wrapper { width: 240px; height: 140px; }
+  .envelope-stage.expanded .letter-card { padding: 18px 15px; }
+  .response-title { font-size: 21px; }
+  .response-text { font-size: 17px; }
 }
 </style>
 </head>
@@ -778,15 +625,12 @@ footer {
 <!-- NIEVE -->
 <div class="snow" aria-hidden="true">
   <span style="--left:5%;--size:12px;--duration:13s;--delay:-4s">✦</span>
-  <span style="--left:13%;--size:8px;--duration:17s;--delay:-9s">❄</span>
-  <span style="--left:22%;--size:10px;--duration:15s;--delay:-2s">✧</span>
-  <span style="--left:31%;--size:7px;--duration:19s;--delay:-12s">❄</span>
-  <span style="--left:42%;--size:11px;--duration:14s;--delay:-6s">✦</span>
-  <span style="--left:51%;--size:8px;--duration:18s;--delay:-3s">❄</span>
-  <span style="--left:61%;--size:12px;--duration:16s;--delay:-10s">✧</span>
-  <span style="--left:72%;--size:9px;--duration:14s;--delay:-7s">❄</span>
-  <span style="--left:82%;--size:11px;--duration:20s;--delay:-13s">✦</span>
-  <span style="--left:93%;--size:8px;--duration:15s;--delay:-5s">❄</span>
+  <span style="--left:15%;--size:8px;--duration:17s;--delay:-9s">❄</span>
+  <span style="--left:28%;--size:10px;--duration:15s;--delay:-2s">✧</span>
+  <span style="--left:40%;--size:7px;--duration:19s;--delay:-12s">❄</span>
+  <span style="--left:55%;--size:11px;--duration:14s;--delay:-6s">✦</span>
+  <span style="--left:70%;--size:8px;--duration:18s;--delay:-3s">❄</span>
+  <span style="--left:85%;--size:12px;--duration:16s;--delay:-10s">✧</span>
 </div>
 
 <div class="page">
@@ -795,89 +639,38 @@ footer {
 <div class="ornament">✧ ❄ ✧</div>
 
 <header>
-
-  <div class="brand">
-
-    <!-- EMBLEMA VECTORIAL DEL EXPRESO BOREAL -->
-    <svg class="logo" viewBox="0 0 220 220"
-         role="img" aria-label="Emblema del Expreso Boreal">
-
-      <defs>
-        <linearGradient id="ebGold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#f8e5b7"/>
-          <stop offset="48%" stop-color="#c99b55"/>
-          <stop offset="100%" stop-color="#f0d49b"/>
-        </linearGradient>
-      </defs>
-
-      <!-- Medallón exterior -->
-      <circle cx="110" cy="110" r="101"
-              fill="#081725" stroke="url(#ebGold)" stroke-width="3"/>
-
-      <circle cx="110" cy="110" r="92"
-              fill="none" stroke="#c99b55" stroke-width="1.5"/>
-
-      <circle cx="110" cy="110" r="84"
-              fill="none" stroke="#c99b55"
-              stroke-width="1" stroke-dasharray="2 5"/>
-
-      <!-- Estrella boreal -->
-      <path d="M110 15 L116 34 L135 40 L116 46
-               L110 65 L104 46 L85 40 L104 34 Z"
-            fill="url(#ebGold)"/>
-
-      <!-- Ramas laterales -->
-      <g fill="none" stroke="url(#ebGold)" stroke-width="2">
-        <path d="M42 83 Q25 112 45 147"/>
-        <path d="M178 83 Q195 112 175 147"/>
-        <path d="M42 83 l-12 -9 M36 105 l-14 -1
-                 M39 128 l-13 7 M178 83 l12 -9
-                 M184 105 l14 -1 M181 128 l13 7"/>
-      </g>
-
-      <!-- Iniciales -->
-      <text x="110" y="119" text-anchor="middle"
-            font-family="Georgia,serif" font-size="65"
-            font-weight="bold" letter-spacing="-7"
-            fill="url(#ebGold)">EB</text>
-
-      <!-- Locomotora estilizada -->
-      <g fill="none" stroke="url(#ebGold)"
-         stroke-width="2.5" stroke-linecap="round"
-         stroke-linejoin="round">
-
-        <path d="M74 145 H146 L140 155 H80 Z"/>
-        <path d="M88 145 V133 H132 V145"/>
-        <path d="M96 133 V122 H124 V133"/>
-        <path d="M103 122 V113 H117 V122"/>
-        <path d="M93 155 L88 163 M127 155 L132 163"/>
-        <circle cx="91" cy="163" r="5"/>
-        <circle cx="129" cy="163" r="5"/>
-        <path d="M110 113 V104 M104 108 L110 101 L116 108"/>
-      </g>
-
-      <!-- Divisa -->
-      <path d="M66 177 H154" stroke="#c99b55" stroke-width="1"/>
-
-      <text x="110" y="190" text-anchor="middle"
-            font-family="Georgia,serif" font-size="9"
-            letter-spacing="2" fill="#f0d49b">BOREAL</text>
-    </svg>
-
-    <div>
-      <h1>CENTRAL</h1>
-      <p>✦ EXPRESO BOREAL · SISTEMA INTERNO ✦</p>
+  <div class="brand-header">
+    <div class="brand-title-box">
+      <!-- LOGO VICTORIANO EB -->
+      <svg class="logo-eb" viewBox="0 0 100 100" aria-label="Logo Expreso Boreal">
+        <circle cx="50" cy="50" r="46" fill="#061320" stroke="url(#gGold)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#d2ad6d" stroke-width="1" stroke-dasharray="2 3"/>
+        <path d="M50 14 L52 22 L60 22 L53 27 L56 35 L50 30 L44 35 L47 27 L40 22 L48 22 Z" fill="#f5dba8"/>
+        <!-- LAURELES -->
+        <path d="M22 50 Q20 70 38 80 M78 50 Q80 70 62 80" fill="none" stroke="#d2ad6d" stroke-width="1.5"/>
+        <!-- TEXTO EB -->
+        <text x="50" y="60" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="32" font-weight="700" fill="url(#gGold)" letter-spacing="-1">EB</text>
+        <defs>
+          <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f5dba8"/>
+            <stop offset="50%" stop-color="#d2ad6d"/>
+            <stop offset="100%" stop-color="#9e7533"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div>
+        <h1>CENTRAL</h1>
+        <p>— EXPRESO BOREAL · SISTEMA INTERNO —</p>
+      </div>
     </div>
-
+    
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      EN LÍNEA
+    </div>
   </div>
 
   <div class="header-rule"></div>
-
-  <div class="status">
-    <span class="status-dot"></span>
-    SISTEMA EN LÍNEA
-  </div>
-
 </header>
 
 <main>
@@ -893,41 +686,25 @@ footer {
   </div>
 
   <section class="telegram">
-
     <div class="telegram-icon">
-      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <circle cx="50" cy="50" r="42"
-                stroke="#d2ad6d" stroke-width="2"/>
-        <circle cx="50" cy="50" r="35"
-                stroke="#d2ad6d" stroke-width="1"/>
-
-        <text x="50" y="59" text-anchor="middle"
-              fill="#f0d49b" font-family="Georgia,serif"
-              font-size="31">EB</text>
-
-        <path d="M50 5 L54 17 L66 21 L54 25
-                 L50 37 L46 25 L34 21 L46 17 Z"
-              fill="#d2ad6d"/>
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="26" stroke="#d2ad6d" stroke-width="1.5"/>
+        <path d="M30 12 V20 M30 40 V48 M12 30 H20 M40 30 H48" stroke="#d2ad6d" stroke-width="1.5"/>
+        <circle cx="30" cy="30" r="6" fill="#f5dba8"/>
+        <path d="M20 20 Q30 10 40 20 M16 16 Q30 4 44 16" stroke="#d2ad6d" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </div>
 
     <div>
       <h3>CENTRAL</h3>
-      <strong>Canal de comunicación estable.</strong>
-      <p>
-        Investigadores, introduzcan la palabra clave
-        correspondiente a su deducción. Se requiere
-        coincidencia exacta.
-      </p>
+      <strong>Canal de comunicación establecido.</strong>
+      <p>Investigadores, introduzcan la palabra clave correspondiente a su deducción. Se requiere coincidencia exacta.</p>
     </div>
-
   </section>
 
   <section class="form-section">
-
     <form id="central-form">
       <label for="keyword">✦ PALABRA CLAVE</label>
-
       <input
         id="keyword"
         type="text"
@@ -935,59 +712,35 @@ footer {
         autocomplete="off"
         required
       >
-
       <button class="send-button" type="submit">
         ✦ ENVIAR A CENTRAL ✦
       </button>
     </form>
-
   </section>
 
-  <!-- ZONA DE DESBLOQUEO -->
-
+  <!-- ZONA DE RESPUESTA / DESBLOQUEO -->
   <section id="response" class="response" aria-live="polite">
 
     <div id="unlock-content" hidden>
-
-      <div class="unlock-heading">
-        ✦ NUEVA COMUNICACIÓN ✦
-      </div>
-
-      <div class="unlock-subtitle">
-        CENTRAL ha recibido una comunicación para los investigadores.
-      </div>
+      <div class="unlock-heading">✦ MENSAJE DESBLOQUEADO ✦</div>
+      <div class="unlock-subtitle">CENTRAL ha validado la transmisión para el Expediente 024.</div>
 
       <div id="envelope-stage" class="envelope-stage">
-
-        <!-- CARTA QUE SALE DEL SOBRE -->
-        <div class="letter-card">
-
-          <div class="letter-content">
-
-            <div class="letter-official">
-              ✦ COMUNICACIÓN OFICIAL · CENTRAL ✦
-            </div>
-
-            <div id="response-title" class="response-title"></div>
-
-            <div id="response-text" class="response-text"></div>
-
-          </div>
-
-          <!-- Texto visible mientras la carta está cerrada -->
-          <div class="letter-mark">EXPRESO BOREAL · EB-024</div>
-          <div class="letter-symbol">✉</div>
-          <div class="letter-caption">COMUNICACIÓN RESERVADA</div>
-
+        
+        <!-- ESTRUCTURA DEL SOBRE -->
+        <div class="envelope-wrapper">
+          <div class="envelope"></div>
+          <div class="envelope-flap"></div>
+          <div class="seal">EB</div>
         </div>
 
-        <!-- SOBRE -->
-        <div id="envelope" class="envelope">
-
-          <div class="envelope-flap"></div>
-
-          <div class="seal">EB</div>
-
+        <!-- CARTA/PERGAMINO -->
+        <div class="letter-card">
+          <div class="letter-content">
+            <div class="letter-official">✦ COMUNICACIÓN OFICIAL · CENTRAL ✦</div>
+            <div id="response-title" class="response-title"></div>
+            <div id="response-text" class="response-text"></div>
+          </div>
         </div>
 
       </div>
@@ -995,22 +748,16 @@ footer {
       <button id="close-button" class="close-button" type="button">
         ✧ CERRAR ✧
       </button>
-
     </div>
 
     <!-- RESPUESTA INCORRECTA -->
     <div id="error-box" class="error-box">
-
-      <div class="error-title">
-        ACCESO NO VALIDADO
-      </div>
-
+      <div class="error-title">ACCESO NO VALIDADO</div>
       <div class="error-text">
-        La palabra introducida no ha sido reconocida.
+        La palabra clave introducida no coincide con ninguna deducción registrada.
         <br><br>
-        Comprueben la información disponible e inténtenlo de nuevo.
+        Verifiquen sus documentos e inténtenlo de nuevo.
       </div>
-
     </div>
 
   </section>
@@ -1019,7 +766,7 @@ footer {
 
 <footer>
   <span class="footer-left">LÍNEA SEGURA · EB-024</span>
-  <span>✧</span>
+  <span>✦</span>
   <span>NAVI-POLO</span>
 </footer>
 
@@ -1029,25 +776,19 @@ footer {
 </div>
 
 <script>
-
 /* =========================================
-   MENSAJES PROVISIONALES
-   Se sustituirán por los mensajes definitivos.
+   DATOS PROVISIONALES
 ========================================= */
-
 const mensajes = {
-
   "PRUEBA": {
     titulo: "CONEXIÓN VERIFICADA",
     texto: "La comunicación con CENTRAL funciona correctamente.\n\nEste es un mensaje de prueba. El sistema está preparado para incorporar las instrucciones reales del Expediente 024."
   }
-
 };
 
 /* =========================================
    ELEMENTOS DE LA INTERFAZ
 ========================================= */
-
 const formulario = document.getElementById("central-form");
 const campo = document.getElementById("keyword");
 
@@ -1056,127 +797,65 @@ const contenido = document.getElementById("unlock-content");
 const errorBox = document.getElementById("error-box");
 
 const stage = document.getElementById("envelope-stage");
-
 const titulo = document.getElementById("response-title");
 const texto = document.getElementById("response-text");
-
 const cerrar = document.getElementById("close-button");
 
 let animationTimers = [];
 
-/* =========================================
-   CANCELAR ANIMACIONES ANTERIORES
-========================================= */
-
 function cancelarAnimacion() {
-
   animationTimers.forEach(clearTimeout);
-
   animationTimers = [];
-
 }
-
-/* =========================================
-   CERRAR LA COMUNICACIÓN
-========================================= */
 
 function cerrarRespuesta() {
-
   cancelarAnimacion();
-
   respuesta.classList.remove("visible");
-
   contenido.hidden = true;
-
   errorBox.classList.remove("visible");
-
-  stage.classList.remove("open");
-  stage.classList.remove("expanded");
-
+  stage.classList.remove("open", "expanded");
   campo.value = "";
-
   campo.focus();
-
 }
 
 /* =========================================
-   ENVIAR PALABRA CLAVE
+   LÓGICA DE ENVIAR
 ========================================= */
-
 formulario.addEventListener("submit", function(event) {
-
   event.preventDefault();
-
   cancelarAnimacion();
 
   const palabra = campo.value.trim().toUpperCase();
 
   respuesta.classList.add("visible");
-
   contenido.hidden = true;
-
   errorBox.classList.remove("visible");
-
-  stage.classList.remove("open");
-  stage.classList.remove("expanded");
+  stage.classList.remove("open", "expanded");
 
   /* PALABRA CORRECTA */
-
   if (mensajes[palabra]) {
-
     titulo.textContent = mensajes[palabra].titulo;
-
     texto.textContent = mensajes[palabra].texto;
-
     contenido.hidden = false;
 
-    /*
-      FASE 1:
-      Aparece el sobre cerrado con el sello EB.
-    */
-
+    // FASE 1: Abrir la solapa y retirar sello
     animationTimers.push(setTimeout(function() {
-
       stage.classList.add("open");
+    }, 300));
 
-    }, 450));
-
-    /*
-      FASE 2:
-      Se abre la solapa y desaparece el sello.
-      La carta comienza a salir del sobre.
-    */
-
-    /*
-      FASE 3:
-      La carta se despliega y ocupa el espacio
-      necesario para mostrar el mensaje.
-    */
-
+    // FASE 2: Desplegar carta como pergamino completo
     animationTimers.push(setTimeout(function() {
-
       stage.classList.add("expanded");
+    }, 1200));
 
-    }, 1550));
-
-  }
-
+  } 
   /* PALABRA INCORRECTA */
-
   else {
-
     errorBox.classList.add("visible");
-
   }
-
 });
 
-/* =========================================
-   CERRAR MENSAJE
-========================================= */
-
 cerrar.addEventListener("click", cerrarRespuesta);
-
 </script>
 
 </body>
