@@ -165,8 +165,6 @@ input:disabled,.send:disabled{opacity:.6;cursor:not-allowed}
 .letter p{margin:0 0 .85em;font-size:clamp(18px,3.4vw,21px);line-height:1.5;color:#2a1d0f}
 .signature{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:14px;font:italic 500 18px 'Cormorant Garamond',serif;color:#73502c;opacity:0;transform:translateY(6px);transition:opacity .8s ease,transform .8s var(--ease)}
 .signature.show{opacity:1;transform:none}
-.signature b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:700 13px 'Cinzel',serif;color:var(--gold-hi);
-  background:radial-gradient(circle at 35% 30%,#b3302b,var(--wax) 55%,#4a0c0a);border:1.5px solid var(--gold)}
 
 .close{
   display:block;margin:26px auto 0;padding:11px 28px;border:1px solid var(--gold);border-radius:999px;cursor:pointer;
@@ -202,10 +200,6 @@ footer span:nth-child(2){font-size:14px}
 <canvas id="snow" aria-hidden="true"></canvas>
 
 <div class="page"><div class="inner">
-
-<header class="banner">
-  <img src="Banner.png" alt="CENTRAL — Expreso Boreal, sistema en línea, Expediente 024">
-</header>
 
 <main>
   <div class="heading">
@@ -261,7 +255,7 @@ footer span:nth-child(2){font-size:14px}
         <div class="official">✦ COMUNICACIÓN OFICIAL · CENTRAL ✦</div>
         <h3 id="title"></h3>
         <div id="body"></div>
-        <div class="signature" id="sign">CENTRAL · Expreso Boreal <b>EB</b></div>
+        <div class="signature" id="sign">CENTRAL · Expreso Boreal</div>
       </article>
 
       <button id="close" class="close" type="button">CERRAR</button>
@@ -279,24 +273,116 @@ footer span:nth-child(2){font-size:14px}
 
 <script>
 /* =========================================
-   MENSAJES (la clave se compara sin tildes ni mayúsculas)
+   CENTRAL · EXPEDIENTE 024
+   Palabras y respuestas oficiales de la sección 10.
+   Solo se normalizan mayúsculas y acentos.
 ========================================= */
-const mensajes = {
-  "PRUEBA": {
-    titulo: "CONEXIÓN VERIFICADA",
-    texto: "La comunicación con CENTRAL funciona correctamente.\n\nEste es un mensaje de prueba. El sistema está preparado para incorporar las instrucciones reales del Expediente 024."
+const hallazgos = {
+  SERVICIO: {
+    claves: ["servicio", "pasillo", "pasillo de servicio", "acceso", "puerta S"],
+    sobre: 1,
+    titulo: "AUTORIZACIÓN DE SERVICIO",
+    texto: "CENTRAL DE RUTAS. Verificado: existe un acceso de servicio que no figura en el plano público. Autorizada la inspección del pasillo, el vagón y la oficina. Pidan el sobre 1 al narrador."
+  },
+  ANTES: {
+    claves: ["antes", "anticipada", "anticipado", "adelantada", "prefirmada", "sello", "1755", "17:55"],
+    sobre: 2,
+    titulo: "REGISTRO ANTICIPADO",
+    texto: "CENTRAL DE RUTAS. Verificado: la línea de las 18:50 no corresponde a una inspección real. Autorizado el registro de los compartimentos. Pidan el sobre 2 al narrador."
+  },
+  DISTRACCION: {
+    claves: ["distracción", "distraer", "entretener", "retener", "truco"],
+    requiereSobre: 2,
+    sobre: 3,
+    titulo: "DISTRACCIÓN VERIFICADA",
+    texto: "CENTRAL DE RUTAS. Verificado: alguien retuvo al inspector durante la parada. Autorizado el acceso al archivo. Servicio SEÑAL disponible. Pidan el sobre 3 al narrador."
+  },
+  SEÑAL: {
+    claves: ["señal"],
+    requiereSobre: 3,
+    titulo: "SERVICIO SEÑAL",
+    texto: "CENTRAL DE RUTAS. La señal de NAVI-POLO se perdió durante una parada, dos minutos después de que el tren se detuviera. Consulten el horario."
+  },
+  "1842": {
+    claves: ["1842", "18:42", "18.42"],
+    requiereSobre: 3,
+    sobre: 4,
+    titulo: "HORA DEL ROBO VERIFICADA",
+    texto: "CENTRAL DE RUTAS. Verificado: el robo ocurrió en Pinar a las 18:42. Servicios ECO y PARADERO disponibles. Pidan el sobre 4 al narrador."
+  },
+  ECO: {
+    claves: ["eco"],
+    requiereSobre: 4,
+    titulo: "ÚLTIMO ECO REGISTRADO",
+    texto: "CENTRAL DE RUTAS. Último eco de NAVI-POLO: 18:51. Procedencia: un espacio cerrado dentro del convoy. Después del eco, el dispositivo dejó de emitir."
+  },
+  PARADERO: {
+    claves: ["paradero"],
+    requiereSobre: 4,
+    sobre: 8,
+    titulo: "PARTES DE SERVICIO",
+    texto: "CENTRAL DE RUTAS. Adjunto los partes de servicio de a bordo: parte del camarero y registro de cabina. Pidan el sobre 8 al narrador."
+  },
+  ESTATURA: {
+    claves: ["estatura", "altura", "silueta"],
+    requiereSobre: 2,
+    sobre: 5,
+    titulo: "ESTIMACIÓN DE ESTATURA",
+    texto: "CENTRAL DE RUTAS. Verificado: la estimación de estatura reduce el grupo de personas posibles. Se entregan el modelo de hoja de acusación y el tablero de cronología. Pidan el sobre 5 al narrador."
+  },
+  ABEDULES: {
+    claves: ["abedules", "valle", "rutas"],
+    requiereSobre: 3,
+    sobre: 7,
+    titulo: "MOTIVO VERIFICADO",
+    texto: "CENTRAL DE RUTAS. Verificado: ya conocen el motivo. Pidan el sobre 7 al narrador."
+  },
+  RELOJ: {
+    claves: ["reloj", "1850", "18:50", "manecillas"],
+    requiereHora: true,
+    sobre: 6,
+    titulo: "ANOMALÍA TEMPORAL",
+    texto: "CENTRAL DE RUTAS. Verificado: una de las horas que figuran en sus documentos no coincide con el momento en que se registró. Comprueben cuál, cuándo cambió y quién estaba presente. Pidan el sobre 6 al narrador."
+  },
+  ACUSO: {
+    claves: ["acuso"],
+    requiereSobre: 5,
+    titulo: "ACUSACIÓN REGISTRADA",
+    texto: "CENTRAL DE RUTAS. Acusación registrada. Entreguen la hoja de acusación completada al narrador."
   }
 };
+
+const respuestaNoValida = "CENTRAL DE RUTAS. Clave no reconocida. Si creen haber comprobado algo, resúmanlo en una sola palabra: un lugar, una hora, una persona, un objeto o una idea.";
+const respuestaYaVerificada = "CENTRAL DE RUTAS. Esta clave ya fue verificada.";
+const respuestaNoDisponible = "CENTRAL DE RUTAS. Servicio no disponible todavía.";
+const respuestaHoraPendiente = "CENTRAL DE RUTAS. Hipótesis anotada. Central no puede verificarla todavía: faltan datos de la cronología. Envíen primero la hora del robo.";
 
 const $ = id => document.getElementById(id);
 const form = $("form"), campo = $("keyword"), boton = $("send");
 const resp = $("response"), unlock = $("unlock"), errorBox = $("error");
 const stage = $("stage"), letter = $("letter");
 const titulo = $("title"), cuerpo = $("body"), sign = $("sign"), cerrar = $("close");
+const errorTitulo = errorBox.querySelector("h3"), errorTexto = errorBox.querySelector("p");
 
-const norm = s => s.trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase();
+const norm = s => s.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let run = 0;
+
+// El progreso se conserva si se recarga CENTRAL en la misma pestaña.
+const STORAGE_KEY = "expreso-boreal-caso024-central-v1";
+let progreso = { verificados: [], sobres: [] };
+try {
+  const guardado = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
+  if (guardado && Array.isArray(guardado.verificados) && Array.isArray(guardado.sobres)) {
+    progreso = guardado;
+  }
+} catch (_) { /* Si el almacenamiento no está disponible, la sesión sigue funcionando en memoria. */ }
+
+const guardarProgreso = () => {
+  try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(progreso)); } catch (_) {}
+};
+const sobreAbierto = n => progreso.sobres.includes(n);
+const hallazgoVerificado = id => progreso.verificados.includes(id);
 
 function reset(){
   run++;
@@ -308,30 +394,21 @@ function reset(){
   errorBox.classList.remove("visible");
 }
 
-async function desbloquear(){
-  const id = ++run, ok = () => id === run;
-  await sleep(80);   if(!ok()) return; stage.classList.add("go");
-  await sleep(300);  if(!ok()) return; navigator.vibrate && navigator.vibrate(45);   // golpe del sello
-  await sleep(1500); if(!ok()) return; stage.classList.add("done");
-  await sleep(500);  if(!ok()) return; letter.classList.add("show");
-  await sleep(800);  if(!ok()) return;
-  sign.classList.add("show"); cerrar.classList.add("show");
-  campo.disabled = boton.disabled = false;
-}
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  const clave = norm(campo.value);
-  if(!clave) return;
+function mostrarError(texto, encabezado = "CONSULTA NO VALIDADA") {
   reset();
   resp.classList.add("visible");
+  errorTitulo.textContent = encabezado;
+  errorTexto.textContent = texto;
+  void errorBox.offsetWidth;
+  errorBox.classList.add("visible");
+}
 
-  const m = Object.hasOwn(mensajes, clave) ? mensajes[clave] : null;
-  if(!m){ void errorBox.offsetWidth; errorBox.classList.add("visible"); return; }
-
-  titulo.textContent = m.titulo;
+function mostrarMensaje(hallazgo) {
+  reset();
+  resp.classList.add("visible");
+  titulo.textContent = hallazgo.titulo;
   cuerpo.replaceChildren();
-  m.texto.split(/\n\s*\n/).forEach(text => {
+  hallazgo.texto.split(/\n\s*\n/).forEach(text => {
     const p = document.createElement("p");
     p.textContent = text;
     cuerpo.appendChild(p);
@@ -339,8 +416,65 @@ form.addEventListener("submit", e => {
   unlock.hidden = false;
   campo.disabled = boton.disabled = true;
   desbloquear();
-});
+}
 
+async function desbloquear(){
+  const id = ++run, ok = () => id === run;
+  await sleep(80);   if(!ok()) return; stage.classList.add("go");
+  await sleep(300);  if(!ok()) return; navigator.vibrate && navigator.vibrate(45);
+  await sleep(1500); if(!ok()) return; stage.classList.add("done");
+  await sleep(500);  if(!ok()) return; letter.classList.add("show");
+  await sleep(800);  if(!ok()) return;
+  sign.classList.add("show"); cerrar.classList.add("show");
+  campo.disabled = boton.disabled = false;
+}
+
+function localizarHallazgo(clave) {
+  for (const [id, hallazgo] of Object.entries(hallazgos)) {
+    if (hallazgo.claves.some(alias => norm(alias) === clave)) return [id, hallazgo];
+  }
+  return [null, null];
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const clave = norm(campo.value);
+  if (!clave) return;
+
+  const [id, hallazgo] = localizarHallazgo(clave);
+  if (!hallazgo) {
+    mostrarError(respuestaNoValida, "ACCESO NO VALIDADO");
+    return;
+  }
+
+  // Una clave ya aceptada no vuelve a desbloquear ni a entregar otro sobre.
+  if (hallazgoVerificado(id)) {
+    mostrarError(respuestaYaVerificada, "CLAVE YA VERIFICADA");
+    return;
+  }
+
+  // Reglas de orden establecidas en la sección 10 del documento.
+  if ((id === "1842" || id === "ABEDULES") && !sobreAbierto(3)) {
+    mostrarError(respuestaNoValida, "ACCESO NO VALIDADO");
+    return;
+  }
+  if (id === "RELOJ" && !hallazgoVerificado("1842")) {
+    mostrarError(respuestaHoraPendiente, "HIPÓTESIS ANOTADA");
+    return;
+  }
+  if (hallazgo.requiereSobre && !sobreAbierto(hallazgo.requiereSobre)) {
+    mostrarError(respuestaNoDisponible, "SERVICIO NO DISPONIBLE");
+    return;
+  }
+
+  // CENTRAL valida únicamente la palabra. No comprueba ni corrige la hoja de acusación.
+  progreso.verificados.push(id);
+  if (hallazgo.sobre && !progreso.sobres.includes(hallazgo.sobre)) {
+    progreso.sobres.push(hallazgo.sobre);
+  }
+  guardarProgreso();
+  mostrarMensaje(hallazgo);
+});
 
 cerrar.addEventListener("click", () => {
   reset();
@@ -349,6 +483,7 @@ cerrar.addEventListener("click", () => {
   campo.value = "";
   campo.focus();
 });
+
 
 /* =========================================
    NIEVE (canvas ligero: sin sombras, menos copos en móvil)
